@@ -7,9 +7,6 @@ const nextConfig = {
   typescript: {
     ignoreBuildErrors: true,
   },
-  eslint: {
-    ignoreDuringBuilds: true,
-  },
   images: {
     remotePatterns: imageHosts,
     minimumCacheTTL: 60,
@@ -24,18 +21,15 @@ const nextConfig = {
     ];
   },
 
-  webpack(
-    config,
-    {
-      dev: dev
-    }
-  ) {
+  webpack(config, { dev: dev }) {
     config.module.rules.push({
       test: /\.(jsx|tsx)$/,
       exclude: [/node_modules/],
-      use: [{
-        loader: '@dhiwise/component-tagger/nextLoader',
-      }],
+      use: [
+        {
+          loader: '@dhiwise/component-tagger/nextLoader',
+        },
+      ],
     });
     if (dev) {
       const ignoredPaths = (process.env.WATCH_IGNORED_PATHS || '')
